@@ -1,15 +1,27 @@
+import data from './data.json'
+
 function App() {
   return (
     <>
       <div className="container">
         <main className="main">
-          Desserts Waffle with Berries Waffle 6.50 Add to Cart Vanilla Bean
-          Crème Brûlée Crème Brûlée 7.00 Add to Cart Macaron Mix of Five Macaron
-          8.00 Add to Cart Classic Tiramisu Tiramisu 5.50 Add to Cart Pistachio
-          Baklava Baklava 4.00 Add to Cart Lemon Meringue Pie Pie 5.00 Add to
-          Cart Red Velvet Cake Cake 4.50 Add to Cart Salted Caramel Brownie
-          Brownie 4.50 Add to Cart Vanilla Panna Cotta Panna Cotta 6.50 Add to
-          Cart Your Cart Your added items will appear here
+          <section className="products">
+            <h1>Desserts</h1>
+            <div className="products__grid">
+              {data.map((product) => (
+                <div className="products__grid-item">
+                  <img src={product.image.thumbnail} alt={product.name} />
+                  <button>Add to cart</button>
+                  <p>{product.category}</p>
+                  <p>{product.name}</p>
+                  <p>{product.price}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+          <aside className="cart">
+            <h2>Your Cart</h2>
+          </aside>
         </main>
         <footer className="footer">
           <p>

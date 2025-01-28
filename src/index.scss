@@ -1,11 +1,4 @@
 :root {
-  /* breakpoints */
-  --sm: 576px;
-  --md: 768px;
-  --lg: 992px;
-  --xl: 1200px;
-  --xxl: 1400px;
-
   /* typography */
   --regular: 400;
   --semibold: 600;
@@ -54,11 +47,11 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+  font-weight: var(--bold);
   margin: 0;
 }
 p {
-  font-weight: 500;
+  font-weight: var(--regular);
   margin: 0;
 }
 ul {
@@ -71,16 +64,22 @@ ul {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 100%;
   margin: 0 auto;
-  @media (min-width: var(--xxl)) {
-    width: 76rem;
+  padding: 1.5rem 1.5rem;
+  @media (min-width: 768px) {
+    padding: 3rem 2.5rem;
+  }
+  @media (min-width: 1400px) {
+    width: 80rem;
+    padding: 5.5rem 2rem;
   }
 }
 
+.products h1 {
+  color: var(--Rose-900);
+}
+
 .footer {
-  width: 46rem;
-  max-width: 100%;
   margin: 0 auto;
   padding-top: 1rem;
   padding-bottom: 1rem;
