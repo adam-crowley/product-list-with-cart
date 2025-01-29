@@ -81,6 +81,10 @@ ul {
   }
 }
 
+.main {
+  display: flex;
+}
+
 .products h1 {
   color: var(--Rose-900);
 }
