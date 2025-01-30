@@ -6,12 +6,14 @@ function Products({ productData }: ProductData) {
       {productData.map((product: Product) => (
         <div className="product">
           <div className="product__img-container">
-            <img src={product.image.desktop} alt={product.name} />
+            <div className="product__img-wrapper">
+              <img src={product.image.desktop} alt={product.name} />
+            </div>
             <button className="product__button">Add to cart</button>
           </div>
-          <p>{product.category}</p>
-          <p>{product.name}</p>
-          <p>{product.price}</p>
+          <p className="product__category">{product.category}</p>
+          <p className="product__name">{product.name}</p>
+          <p className="product__price">${product.price}</p>
         </div>
       ))}
     </div>
