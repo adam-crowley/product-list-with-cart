@@ -6,6 +6,7 @@ export interface ImageUrls {
 }
 
 export interface Product {
+  id: number
   image: ImageUrls
   name: string
   category: string
