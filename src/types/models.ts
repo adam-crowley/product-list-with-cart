@@ -11,6 +11,7 @@ export interface Product {
   name: string
   category: string
   price: number
+  qty?: number
 }
 
 export interface ProductData {

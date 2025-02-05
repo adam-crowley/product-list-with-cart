@@ -6,11 +6,29 @@ function Products({ productData }: ProductData) {
     [key: string]: boolean
   }>({})
 
-  const handleClick = (productId: number) => {
+  const [cart, setCart] = useState<Product[]>([])
+
+  const handleAddToCart = (product: Product) => {
+    const productId = product.id
     setActiveProducts((prev) => ({
       ...prev,
       [productId]: !prev[productId],
     }))
+    setCart((prev: Product[]) => [...prev, { ...product, qty: 1 }])
+
+    console.log('activeProducts: ', activeProducts)
+    console.log('cart: ', cart)
+  }
+
+  const handleQtyChange = (productId: number, qty: number) => {
+    setCart((products) =>
+      products.map((product) =>
+        productId === product.id
+          ? { ...product, qty: (product.qty ?? 0) + qty }
+          : product
+      )
+    )
+    console.log('cart: ', cart)
   }
 
   return (
@@ -23,7 +41,10 @@ function Products({ productData }: ProductData) {
             </div>
             {activeProducts[product.id] ? (
               <div className="product__qty-selector">
-                <button className="product__qty-btn">
+                <button
+                  onClick={() => handleQtyChange(product.id, -1)}
+                  className="product__qty-btn"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="10"
@@ -34,8 +55,11 @@ function Products({ productData }: ProductData) {
                     <path d="M0 .375h10v1.25H0V.375Z" />
                   </svg>
                 </button>
-                1
-                <button className="product__qty-btn">
+                {cart.find((item) => item.id === product.id)?.qty || 1}
+                <button
+                  onClick={() => handleQtyChange(product.id, 1)}
+                  className="product__qty-btn"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="10"
@@ -50,7 +74,7 @@ function Products({ productData }: ProductData) {
             ) : (
               <button
                 className="product__button"
-                onClick={() => handleClick(product.id)}
+                onClick={() => handleAddToCart(product)}
               >
                 Add to cart
               </button>
@@ -58,7 +82,9 @@ function Products({ productData }: ProductData) {
           </div>
           <p className="product__category">{product.category}</p>
           <p className="product__name">{product.name}</p>
-          <p className="product__price">${product.price}</p>
+          <p className="product__price">
+            ${Number.parseFloat(product.price.toString()).toFixed(2)}
+          </p>
         </div>
       ))}
     </div>

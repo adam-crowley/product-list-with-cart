@@ -43,7 +43,7 @@ function Cart() {
           </table>
           <div className="cart__message">
             <img
-              src="/public/assets/images/icon-carbon-neutral.svg"
+              src="/assets/images/icon-carbon-neutral.svg"
               alt="Carbon neutral icon"
             />
             This is a <span>&nbsp;carbon-neutral&nbsp;</span> delivery
