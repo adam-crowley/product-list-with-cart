@@ -9,25 +9,37 @@ function Products({ productData }: ProductData) {
   const [cart, setCart] = useState<Product[]>([])
 
   const handleAddToCart = (product: Product) => {
-    const productId = product.id
     setActiveProducts((prev) => ({
       ...prev,
-      [productId]: !prev[productId],
+      [product.id]: !prev[product.id],
     }))
     setCart((prev: Product[]) => [...prev, { ...product, qty: 1 }])
-
     console.log('activeProducts: ', activeProducts)
     console.log('cart: ', cart)
   }
 
   const handleQtyChange = (productId: number, qty: number) => {
-    setCart((products) =>
-      products.map((product) =>
-        productId === product.id
-          ? { ...product, qty: (product.qty ?? 0) + qty }
-          : product
-      )
-    )
+    setCart((products) => {
+      const updatedProducts = products
+        .map((product) =>
+          productId === product.id
+            ? { ...product, qty: (product.qty ?? 0) + qty }
+            : product
+        )
+        .filter((product) => (product.qty ?? 0) > 0)
+
+      if (!updatedProducts.some((product) => product.id === productId)) {
+        setActiveProducts((prev) => ({
+          ...prev,
+          [productId]: false,
+        }))
+      }
+
+      return updatedProducts
+    })
+
+    console.log('productId: ', productId)
+    console.log('activeProducts: ', activeProducts)
     console.log('cart: ', cart)
   }
 
@@ -55,7 +67,7 @@ function Products({ productData }: ProductData) {
                     <path d="M0 .375h10v1.25H0V.375Z" />
                   </svg>
                 </button>
-                {cart.find((item) => item.id === product.id)?.qty || 1}
+                {cart.find((item) => item.id === product.id)?.qty || 0}
                 <button
                   onClick={() => handleQtyChange(product.id, 1)}
                   className="product__qty-btn"
