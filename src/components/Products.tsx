@@ -37,8 +37,6 @@ function Products({ productData }: ProductData) {
 
       return updatedProducts
     })
-
-    console.log('productId: ', productId)
     console.log('activeProducts: ', activeProducts)
     console.log('cart: ', cart)
   }
@@ -49,7 +47,17 @@ function Products({ productData }: ProductData) {
         <div className="product" key={product.id}>
           <div className="product__img-container">
             <div className="product__img-wrapper">
-              <img src={product.image.desktop} alt={product.name} />
+              <picture>
+                <source
+                  media="(min-width: 992px)"
+                  srcSet={product.image.desktop}
+                />
+                <source
+                  media="(min-width: 768px)"
+                  srcSet={product.image.tablet}
+                />
+                <img src={product.image.mobile} alt={product.name} />
+              </picture>
             </div>
             {activeProducts[product.id] ? (
               <div className="product__qty-selector">
