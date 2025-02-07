@@ -1,13 +1,20 @@
-import { useState } from 'react'
 import { Product, ProductData } from '../types/models'
 
-function Products({ productData }: ProductData) {
-  const [activeProducts, setActiveProducts] = useState<{
-    [key: string]: boolean
-  }>({})
-
-  const [cart, setCart] = useState<Product[]>([])
-
+function Products({
+  productData,
+  cart,
+  setCart,
+  activeProducts,
+  setActiveProducts,
+}: {
+  productData: ProductData
+  cart: Product[]
+  setCart: React.Dispatch<React.SetStateAction<Product[]>>
+  activeProducts: { [key: string]: boolean }
+  setActiveProducts: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >
+}) {
   const handleAddToCart = (product: Product) => {
     setActiveProducts((prev) => ({
       ...prev,

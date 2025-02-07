@@ -1,11 +1,19 @@
-function Cart() {
+import { Product } from '../types/models'
+
+function Cart({
+  cart,
+  setCart,
+}: {
+  cart: Product[]
+  setCart: React.Dispatch<React.SetStateAction<Product[]>>
+}) {
   return (
     <aside className="cart">
       <div className="cart__container">
         <h2>Your Cart (0)</h2>
         {/* <div className="cart__items--empty">
           <img
-            src="../../public/assets/images/illustration-empty-cart.svg"
+            src="../../assets/images/illustration-empty-cart.svg"
             alt="Empty cart image"
           />
           <p>Your added items will appear here</p>

@@ -14,6 +14,4 @@ export interface Product {
   qty?: number
 }
 
-export interface ProductData {
-  productData: Product[]
-}
+export type ProductData = Product[]
