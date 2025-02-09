@@ -295,7 +295,7 @@ ul {
   font-size: 0.875rem;
   border-bottom: solid 1px var(--Rose-100);
   padding: 0.75rem 0;
-  line-height: 2;
+  line-height: 1.75;
 }
 
 .cart__table tr:last-child td {

@@ -1,5 +1,7 @@
 import { Product, ProductData } from '../types/models'
 
+import { displayDecimal } from '../helperFunctions/displayDecimal'
+
 function Products({
   productData,
   cart,
@@ -109,9 +111,7 @@ function Products({
           </div>
           <p className="product__category">{product.category}</p>
           <p className="product__name">{product.name}</p>
-          <p className="product__price">
-            ${Number.parseFloat(product.price.toString()).toFixed(2)}
-          </p>
+          <p className="product__price">${displayDecimal(product.price)}</p>
         </div>
       ))}
     </div>
