@@ -314,7 +314,10 @@ td.cart__order-total {
   font-weight: var(--semibold);
 }
 
-.dialog {
+.dialog[open] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   bottom: 0;
   width: 100%;
@@ -324,15 +327,14 @@ td.cart__order-total {
   background: transparent;
 }
 .dialog__bg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: absolute;
   background-color: rgba($color: #000, $alpha: 0.5);
   width: 100%;
   height: 100%;
 }
 .dialog__content {
+  position: relative;
+  z-index: 1;
   width: 37rem;
   padding: 2.5rem;
   background-color: var(--White);
