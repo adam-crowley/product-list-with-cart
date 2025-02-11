@@ -94,31 +94,35 @@ function Cart({
       <dialog open={isModalOpen} className="dialog">
         <div className="dialog__bg">
           <div className="dialog__content">
-            <img src="../../assets/images/icon-order-confirmed.svg" alt="" />
+            <img
+              className="dialog__confirm"
+              src="../../assets/images/icon-order-confirmed.svg"
+              alt=""
+            />
             <h2>Order Confirmed</h2>
             <p>We hope you enjoy your food!</p>
             <div className="dialog__table-wrapper">
-              <table className="cart__table">
+              <table className="dialog__table">
                 <tbody>
                   {cart.map((product: Product) => (
                     <tr key={product.id}>
-                      <td className="cart_thumb-td">
+                      <td className="dialog__thumb-td">
                         <img
-                          className="cart_thumb-img"
+                          className="dialog__thumb-img"
                           src={product.image.thumbnail}
                           alt={product.name}
                         />
                       </td>
                       <td>
-                        <span className="cart__title">{product.name}</span>
+                        <span className="dialog__title">{product.name}</span>
                         <br></br>
-                        <span className="cart__volume">{product.qty}x</span>
-                        <span className="cart__price">
+                        <span className="dialog__volume">{product.qty}x</span>
+                        <span className="dialog__price">
                           @ ${displayDecimal(product.price)}
                         </span>
                       </td>
-                      <td>
-                        <span className="cart__total">
+                      <td className="dialog__total-td">
+                        <span className="dialog__total">
                           ${displayDecimal(product.price * (product.qty ?? 0))}
                         </span>
                       </td>
@@ -126,8 +130,8 @@ function Cart({
                   ))}
 
                   <tr>
-                    <td>Order Total</td>
-                    <td className="cart__order-total">
+                    <td colSpan={2}>Order Total</td>
+                    <td className="dialog__order-total">
                       $
                       {displayDecimal(
                         cart.reduce(
@@ -143,7 +147,7 @@ function Cart({
             </div>
             <form method="dialog">
               <button
-                className="cart__confirm-btn"
+                className="dialog__confirm-btn"
                 onClick={() => setIsModalOpen(false)}
               >
                 Start New Order

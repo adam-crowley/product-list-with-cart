@@ -251,7 +251,7 @@ ul {
   color: var(--White);
   cursor: pointer;
   width: 100%;
-  height: 2.75rem;
+  height: 3.313rem;
   border-radius: 2.75rem;
   transition: background-color 0.2s;
   border: 0;
@@ -354,32 +354,6 @@ td.cart__order-total {
   font-weight: var(--semibold);
 }
 
-.cart_thumb-img {
-  display: block;
-  width: 3rem;
-  border-radius: 0.25rem;
-}
-
-.cart_thumb-td {
-  width: 4rem;
-}
-
-.footer {
-  margin: 0 auto;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  text-align: center;
-}
-
-.footer p {
-  font-size: 0.75rem;
-  margin: 0;
-}
-
-.footer a {
-  color: var(--Rose-900);
-}
-
 .dialog {
   top: 0;
   bottom: 0;
@@ -404,11 +378,121 @@ td.cart__order-total {
   width: 37rem;
   padding: 2.5rem;
   background-color: var(--White);
+  border-radius: 0.75rem;
+}
+
+.dialog h2 {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.dialog p {
+  color: var(--Rose-500);
+  margin-bottom: 1.75rem;
 }
 
 .dialog__table-wrapper {
   background-color: var(--Rose-50);
-  padding: 1.5rem;
+  padding: 0.625rem 1.5rem 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.dialog__table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.dialog__table td {
+  font-size: 0.875rem;
+  border-bottom: solid 1px var(--Rose-100);
+  padding: 0.75rem 0;
+  line-height: 1.75;
+}
+
+.dialog__table tr:last-child td {
+  border-bottom: 0;
+  padding: 1.5rem 0 0;
+}
+
+.dialog__confirm {
+  margin-bottom: 1rem;
+}
+
+.dialog__thumb-img {
+  display: block;
+  width: 3rem;
+  border-radius: 0.25rem;
+}
+
+.dialog__thumb-td {
+  width: 4rem;
+}
+
+.dialog__title {
+  font-weight: var(--semibold);
+  color: var(--Rose-900);
+}
+
+.dialog__volume {
+  font-weight: var(--semibold);
+  color: var(--Red);
+  margin-right: 1rem;
+}
+
+.dialog__price {
+  font-weight: var(--regular);
+  color: var(--Rose-500);
+  margin-right: 1rem;
+}
+
+.dialog__total-td {
+  text-align: right;
+}
+
+.dialog__total {
+  font-size: 1rem;
+  font-weight: var(--semibold);
+  color: var(--Rose-900);
+}
+
+td.dialog__order-total {
+  font-size: 1.5rem;
+  font-weight: var(--bold);
+  text-align: right;
+}
+
+.dialog__confirm-btn {
+  font-size: 1rem;
+  font-weight: var(--semibold);
+  color: var(--White);
+  cursor: pointer;
+  width: 100%;
+  height: 3.313rem;
+  border-radius: 2.75rem;
+  transition: background-color 0.2s;
+  border: 0;
+  background-color: var(--Red);
+}
+.dialog__confirm-btn:hover {
+  background-color: #952b0b;
+}
+
+.footer {
+  margin: 0 auto;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.footer p {
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+.footer a {
+  color: var(--Rose-900);
 }
 
 /*# sourceMappingURL=index.css.map */
