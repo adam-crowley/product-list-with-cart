@@ -26,6 +26,11 @@ function Cart({
     })
   }
 
+  const clearCart = () => {
+    setCart([])
+    setActiveProducts({})
+  }
+
   return (
     <>
       <aside className="cart">
@@ -164,7 +169,10 @@ function Cart({
             <form method="dialog">
               <button
                 className="dialog__confirm-btn"
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => {
+                  setIsModalOpen(false)
+                  clearCart()
+                }}
               >
                 Start New Order
               </button>
