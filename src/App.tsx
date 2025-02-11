@@ -25,7 +25,11 @@ function App() {
               setActiveProducts={setActiveProducts}
             />
           </section>
-          <Cart cart={cart} setCart={setCart} />
+          <Cart
+            cart={cart}
+            setCart={setCart}
+            setActiveProducts={setActiveProducts}
+          />
         </main>
         <Footer />
       </div>

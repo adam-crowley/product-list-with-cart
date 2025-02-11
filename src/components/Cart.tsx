@@ -7,11 +7,24 @@ import { displayDecimal } from '../helperFunctions/displayDecimal'
 function Cart({
   cart,
   setCart,
+  setActiveProducts,
 }: {
   cart: Product[]
   setCart: React.Dispatch<React.SetStateAction<Product[]>>
+  setActiveProducts: React.Dispatch<
+    React.SetStateAction<{ [key: string]: boolean }>
+  >
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const removeFromCart = (productId: number) => {
+    setCart((prev) => prev.filter((item) => item.id !== productId))
+    setActiveProducts((prev) => {
+      const newData = { ...prev }
+      delete newData[productId]
+      return newData
+    })
+  }
 
   return (
     <>
@@ -44,7 +57,10 @@ function Cart({
                         </span>
                       </td>
                       <td className="cart__delete-td">
-                        <button className="cart__delete-btn">
+                        <button
+                          onClick={() => removeFromCart(product.id)}
+                          className="cart__delete-btn"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="10"
