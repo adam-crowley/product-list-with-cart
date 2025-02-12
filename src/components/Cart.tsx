@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef } from 'react'
 
 import { Product } from '../types/models'
 
@@ -15,7 +15,7 @@ function Cart({
     React.SetStateAction<{ [key: string]: boolean }>
   >
 }) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const dialogRef = useRef(null)
 
   const removeFromCart = (productId: number) => {
     setCart((prev) => prev.filter((item) => item.id !== productId))
@@ -31,6 +31,20 @@ function Cart({
     setActiveProducts({})
   }
 
+  const openDialog = () => {
+    if (dialogRef.current) {
+      dialogRef.current.showModal()
+      dialogRef.current.focus()
+    }
+    // return isModalOpen ? null : setIsModalOpen(true)
+  }
+
+  const closeDialog = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close()
+    }
+  }
+
   return (
     <>
       <aside className="cart">
@@ -39,7 +53,7 @@ function Cart({
           {cart.length === 0 ? (
             <div className="cart__items--empty">
               <img
-                src="../../assets/images/illustration-empty-cart.svg"
+                src="/assets/images/illustration-empty-cart.svg"
                 alt="Empty cart image"
               />
               <p>Your added items will appear here</p>
@@ -103,7 +117,7 @@ function Cart({
                 This is a <span>&nbsp;carbon-neutral&nbsp;</span> delivery
               </div>
               <button
-                onClick={() => (isModalOpen ? null : setIsModalOpen(true))}
+                onClick={() => openDialog()}
                 className="cart__confirm-btn"
               >
                 Confirm Order
@@ -112,12 +126,12 @@ function Cart({
           )}
         </div>
       </aside>
-      <dialog open={isModalOpen} className="dialog">
-        <div onClick={() => setIsModalOpen(false)} className="dialog__bg"></div>
+      <dialog ref={dialogRef} tabIndex={0} className="dialog">
+        <div onClick={() => closeDialog()} className="dialog__bg"></div>
         <div className="dialog__content">
           <img
             className="dialog__confirm"
-            src="../../assets/images/icon-order-confirmed.svg"
+            src="/assets/images/icon-order-confirmed.svg"
             alt="Order confimed icon"
           />
           <h2>Order Confirmed</h2>
@@ -170,7 +184,7 @@ function Cart({
             <button
               className="dialog__confirm-btn"
               onClick={() => {
-                setIsModalOpen(false)
+                closeDialog()
                 clearCart()
               }}
             >
