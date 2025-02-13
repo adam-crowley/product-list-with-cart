@@ -3,13 +3,11 @@ import Cart from './components/Cart'
 import Footer from './components/Footer'
 import Products from './components/Products'
 import data from './data.json'
-import { Product } from './types/models'
+import { Product, ActiveProducts } from './types/models'
 
 function App() {
   const [cart, setCart] = useState<Product[]>([])
-  const [activeProducts, setActiveProducts] = useState<{
-    [key: string]: boolean
-  }>({})
+  const [activeProducts, setActiveProducts] = useState<ActiveProducts>({})
 
   return (
     <>

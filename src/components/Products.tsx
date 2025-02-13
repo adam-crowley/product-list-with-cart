@@ -1,4 +1,4 @@
-import { Product, ProductData } from '../types/models'
+import { Product, ProductData, ActiveProducts } from '../types/models'
 
 import { displayDecimal } from '../helperFunctions/displayDecimal'
 
@@ -12,10 +12,8 @@ function Products({
   productData: ProductData
   cart: Product[]
   setCart: React.Dispatch<React.SetStateAction<Product[]>>
-  activeProducts: { [key: string]: boolean }
-  setActiveProducts: React.Dispatch<
-    React.SetStateAction<{ [key: string]: boolean }>
-  >
+  activeProducts: ActiveProducts
+  setActiveProducts: React.Dispatch<React.SetStateAction<ActiveProducts>>
 }) {
   const handleAddToCart = (product: Product) => {
     setActiveProducts((prev) => ({
@@ -23,8 +21,6 @@ function Products({
       [product.id]: !prev[product.id],
     }))
     setCart((prev: Product[]) => [...prev, { ...product, qty: 1 }])
-    console.log('activeProducts: ', activeProducts)
-    console.log('cart: ', cart)
   }
 
   const handleQtyChange = (productId: number, qty: number) => {
@@ -46,8 +42,6 @@ function Products({
 
       return updatedProducts
     })
-    console.log('activeProducts: ', activeProducts)
-    console.log('cart: ', cart)
   }
 
   return (

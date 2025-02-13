@@ -15,3 +15,7 @@ export interface Product {
 }
 
 export type ProductData = Product[]
+
+export interface ActiveProducts {
+  [key: string]: boolean
+}

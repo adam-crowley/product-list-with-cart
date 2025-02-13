@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import { Product } from '../types/models'
+import { Product, ActiveProducts } from '../types/models'
 
 import { displayDecimal } from '../helperFunctions/displayDecimal'
 
@@ -11,11 +11,9 @@ function Cart({
 }: {
   cart: Product[]
   setCart: React.Dispatch<React.SetStateAction<Product[]>>
-  setActiveProducts: React.Dispatch<
-    React.SetStateAction<{ [key: string]: boolean }>
-  >
+  setActiveProducts: React.Dispatch<React.SetStateAction<ActiveProducts>>
 }) {
-  const dialogRef = useRef(null)
+  const dialogRef = useRef<HTMLDialogElement | null>(null)
 
   const removeFromCart = (productId: number) => {
     setCart((prev) => prev.filter((item) => item.id !== productId))
@@ -36,7 +34,6 @@ function Cart({
       dialogRef.current.showModal()
       dialogRef.current.focus()
     }
-    // return isModalOpen ? null : setIsModalOpen(true)
   }
 
   const closeDialog = () => {
@@ -180,17 +177,15 @@ function Cart({
               </tbody>
             </table>
           </div>
-          <form method="dialog">
-            <button
-              className="dialog__confirm-btn"
-              onClick={() => {
-                closeDialog()
-                clearCart()
-              }}
-            >
-              Start New Order
-            </button>
-          </form>
+          <button
+            className="dialog__confirm-btn"
+            onClick={() => {
+              closeDialog()
+              clearCart()
+            }}
+          >
+            Start New Order
+          </button>
         </div>
       </dialog>
     </>
