@@ -147,7 +147,6 @@ function Cart({
                     </td>
                     <td>
                       <span className="dialog__title">{product.name}</span>
-                      <br></br>
                       <span className="dialog__volume">{product.qty}x</span>
                       <span className="dialog__price">
                         @ ${displayDecimal(product.price)}
