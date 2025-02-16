@@ -1,25 +1,28 @@
 import { Product, ProductData, ActiveProducts } from '../types/models'
-
 import { displayDecimal } from '../helperFunctions/displayDecimal'
+import { useActiveProductsStore } from '../store/activeProductsStore'
 
 function Products({
   productData,
   cart,
   setCart,
-  activeProducts,
-  setActiveProducts,
-}: {
+}: // activeProducts,
+// setActiveProducts,
+{
   productData: ProductData
   cart: Product[]
   setCart: React.Dispatch<React.SetStateAction<Product[]>>
-  activeProducts: ActiveProducts
-  setActiveProducts: React.Dispatch<React.SetStateAction<ActiveProducts>>
+  // activeProducts: ActiveProducts
+  // setActiveProducts: React.Dispatch<React.SetStateAction<ActiveProducts>>
 }) {
+  const { activeProducts, setActiveProducts } = useActiveProductsStore()
+
   const handleAddToCart = (product: Product) => {
-    setActiveProducts((prev) => ({
-      ...prev,
-      [product.id]: !prev[product.id],
-    }))
+    setActiveProducts(product.id, true)
+    // setActiveProducts((prev) => ({
+    //   ...prev,
+    //   [product.id]: !prev[product.id],
+    // }))
     setCart((prev: Product[]) => [...prev, { ...product, qty: 1 }])
   }
 
@@ -34,10 +37,10 @@ function Products({
         .filter((product) => (product.qty ?? 0) > 0)
 
       if (!updatedProducts.some((product) => product.id === productId)) {
-        setActiveProducts((prev) => ({
-          ...prev,
-          [productId]: false,
-        }))
+        // setActiveProducts((prev) => ({
+        //   ...prev,
+        //   [productId]: false,
+        // }))
       }
 
       return updatedProducts

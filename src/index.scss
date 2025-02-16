@@ -223,6 +223,9 @@ ul {
   padding: 1.5rem 1.5rem;
   border-radius: 0.75rem;
   @media (min-width: 992px) {
+    padding: 1.5rem 1.5rem;
+  }
+  @media (min-width: 1200px) {
     padding: 1.5rem 2rem;
   }
 }
@@ -340,6 +343,12 @@ td.cart__order-total {
   border-radius: 0.5rem;
   padding: 1rem;
   margin-bottom: 1.5rem;
+  @media (min-width: 992px) {
+    font-size: 0.75rem;
+  }
+  @media (min-width: 1200px) {
+    font-size: 0.875rem;
+  }
 }
 .cart__message img {
   margin-right: 0.5rem;

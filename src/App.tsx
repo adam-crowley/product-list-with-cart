@@ -19,8 +19,8 @@ function App() {
               productData={data}
               cart={cart}
               setCart={setCart}
-              activeProducts={activeProducts}
-              setActiveProducts={setActiveProducts}
+              // activeProducts={activeProducts}
+              // setActiveProducts={setActiveProducts}
             />
           </section>
           <Cart
