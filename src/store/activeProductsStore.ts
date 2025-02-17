@@ -5,6 +5,7 @@ import { ActiveProducts } from '../types/models'
 interface ActiveProductsStore {
   activeProducts: ActiveProducts
   setActiveProducts: (productId: number, isActive: boolean) => void
+  clearActiveProducts: () => void
 }
 
 export const useActiveProductsStore = create<ActiveProductsStore>((set) => ({
@@ -15,5 +16,9 @@ export const useActiveProductsStore = create<ActiveProductsStore>((set) => ({
         ...state.activeProducts,
         [productId]: isActive,
       },
+    })),
+  clearActiveProducts: () =>
+    set(() => ({
+      activeProducts: {},
     })),
 }))

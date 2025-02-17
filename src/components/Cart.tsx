@@ -1,32 +1,26 @@
 import { useRef } from 'react'
-
-import { Product, ActiveProducts } from '../types/models'
-
+import { Product } from '../types/models'
 import { displayDecimal } from '../helperFunctions/displayDecimal'
+import { useActiveProductsStore } from '../store/activeProductsStore'
 
 function Cart({
   cart,
   setCart,
-  setActiveProducts,
 }: {
   cart: Product[]
   setCart: React.Dispatch<React.SetStateAction<Product[]>>
-  setActiveProducts: React.Dispatch<React.SetStateAction<ActiveProducts>>
 }) {
+  const { setActiveProducts, clearActiveProducts } = useActiveProductsStore()
   const dialogRef = useRef<HTMLDialogElement | null>(null)
 
   const removeFromCart = (productId: number) => {
     setCart((prev) => prev.filter((item) => item.id !== productId))
-    setActiveProducts((prev) => {
-      const newData = { ...prev }
-      delete newData[productId]
-      return newData
-    })
+    setActiveProducts(productId, false)
   }
 
   const clearCart = () => {
     setCart([])
-    setActiveProducts({})
+    clearActiveProducts()
   }
 
   const openDialog = () => {
