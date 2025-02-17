@@ -1,39 +1,38 @@
 import { Product, ProductData } from '../types/models'
 import { displayDecimal } from '../helperFunctions/displayDecimal'
 import { useActiveProductsStore } from '../store/activeProductsStore'
+import { useCartStore } from '../store/cartStore'
 
-function Products({
-  productData,
-  cart,
-  setCart,
-}: {
-  productData: ProductData
-  cart: Product[]
-  setCart: React.Dispatch<React.SetStateAction<Product[]>>
-}) {
+function Products({ productData }: { productData: ProductData }) {
   const { activeProducts, setActiveProducts } = useActiveProductsStore()
+  const { cart, addToCart, updateProductQty } = useCartStore()
 
   const handleAddToCart = (product: Product) => {
     setActiveProducts(product.id, true)
-    setCart((prev: Product[]) => [...prev, { ...product, qty: 1 }])
+    addToCart(product)
+    console.log('product', product)
+    console.log('cart', cart)
   }
 
-  const handleQtyChange = (productId: number, qty: number) => {
-    setCart((products) => {
-      const updatedProducts = products
-        .map((product) =>
-          productId === product.id
-            ? { ...product, qty: (product.qty ?? 0) + qty }
-            : product
-        )
-        .filter((product) => (product.qty ?? 0) > 0)
+  const handleQtyChange = (product: Product, qty: number) => {
+    updateProductQty(product, qty)
+    console.log('product', product)
+    console.log('cart', cart)
+    // setCart((prev) => {
+    //   const updatedProducts = prev
+    //     .map((product) =>
+    //       productId === product.id
+    //         ? { ...product, qty: (product.qty ?? 0) + qty }
+    //         : product
+    //     )
+    //     .filter((product) => (product.qty ?? 0) > 0)
 
-      if (!updatedProducts.some((product) => product.id === productId)) {
-        setActiveProducts(productId, false)
-      }
+    //   if (!updatedProducts.some((product) => product.id === productId)) {
+    //     setActiveProducts(productId, false)
+    //   }
 
-      return updatedProducts
-    })
+    //   return updatedProducts
+    // })
   }
 
   return (
@@ -57,7 +56,7 @@ function Products({
             {activeProducts[product.id] ? (
               <div className="product__qty-selector">
                 <button
-                  onClick={() => handleQtyChange(product.id, -1)}
+                  onClick={() => handleQtyChange(product, -1)}
                   className="product__qty-btn"
                 >
                   <svg
@@ -72,7 +71,7 @@ function Products({
                 </button>
                 {cart.find((item) => item.id === product.id)?.qty || 0}
                 <button
-                  onClick={() => handleQtyChange(product.id, 1)}
+                  onClick={() => handleQtyChange(product, 1)}
                   className="product__qty-btn"
                 >
                   <svg

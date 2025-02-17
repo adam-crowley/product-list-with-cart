@@ -14,7 +14,7 @@ function App() {
         <main className="main">
           <section className="products">
             <h1>Desserts</h1>
-            <Products productData={data} cart={cart} setCart={setCart} />
+            <Products productData={data} />
           </section>
           <Cart cart={cart} setCart={setCart} />
         </main>
