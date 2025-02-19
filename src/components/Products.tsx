@@ -1,39 +1,10 @@
-import { Product, ProductData } from '../types/models'
+import { Product } from '../types/models'
 import { displayDecimal } from '../helperFunctions/displayDecimal'
-import { useActiveProductsStore } from '../store/activeProductsStore'
 import { useCartStore } from '../store/cartStore'
+import productData from '../data.json'
 
-function Products({ productData }: { productData: ProductData }) {
-  const { activeProducts, setActiveProducts } = useActiveProductsStore()
+function Products() {
   const { cart, addToCart, updateProductQty } = useCartStore()
-
-  const handleAddToCart = (product: Product) => {
-    setActiveProducts(product.id, true)
-    addToCart(product)
-    console.log('product', product)
-    console.log('cart', cart)
-  }
-
-  const handleQtyChange = (product: Product, qty: number) => {
-    updateProductQty(product, qty)
-    console.log('product', product)
-    console.log('cart', cart)
-    // setCart((prev) => {
-    //   const updatedProducts = prev
-    //     .map((product) =>
-    //       productId === product.id
-    //         ? { ...product, qty: (product.qty ?? 0) + qty }
-    //         : product
-    //     )
-    //     .filter((product) => (product.qty ?? 0) > 0)
-
-    //   if (!updatedProducts.some((product) => product.id === productId)) {
-    //     setActiveProducts(productId, false)
-    //   }
-
-    //   return updatedProducts
-    // })
-  }
 
   return (
     <div className="products__grid">
@@ -53,10 +24,10 @@ function Products({ productData }: { productData: ProductData }) {
                 <img src={product.image.mobile} alt={product.name} />
               </picture>
             </div>
-            {activeProducts[product.id] ? (
+            {cart.find((item) => item.id === product.id)?.active ? (
               <div className="product__qty-selector">
                 <button
-                  onClick={() => handleQtyChange(product, -1)}
+                  onClick={() => updateProductQty(product, -1)}
                   className="product__qty-btn"
                 >
                   <svg
@@ -69,9 +40,9 @@ function Products({ productData }: { productData: ProductData }) {
                     <path d="M0 .375h10v1.25H0V.375Z" />
                   </svg>
                 </button>
-                {cart.find((item) => item.id === product.id)?.qty || 0}
+                {cart.find((item) => item.id === product.id)?.qty}
                 <button
-                  onClick={() => handleQtyChange(product, 1)}
+                  onClick={() => updateProductQty(product, 1)}
                   className="product__qty-btn"
                 >
                   <svg
@@ -88,7 +59,7 @@ function Products({ productData }: { productData: ProductData }) {
             ) : (
               <button
                 className="product__button"
-                onClick={() => handleAddToCart(product)}
+                onClick={() => addToCart(product)}
               >
                 Add to cart
               </button>

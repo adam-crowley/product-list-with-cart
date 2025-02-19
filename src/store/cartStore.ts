@@ -1,21 +1,31 @@
 import { create } from 'zustand'
 
-import { Product } from '../types/models'
-
-interface CartStore {
-  cart: Product[]
-  addToCart: (product: Product) => void
-  updateProductQty: (product: Product, qty: number) => void
-}
+import { Product, CartStore } from '../types/models'
 
 export const useCartStore = create<CartStore>((set) => ({
   cart: [],
   addToCart: (product: Product) =>
-    set((state) => ({ cart: [...state.cart, { ...product, qty: 1 }] })),
+    set((state) => {
+      const existingProduct = state.cart.find((item) => item.id === product.id)
+      if (!existingProduct) {
+        return {
+          cart: [...state.cart, { ...product, qty: 1, active: true }],
+        }
+      }
+      return state
+    }),
   updateProductQty: (product: Product, qty: number) =>
     set((state) => ({
-      cart: state.cart.map((item) =>
-        item.id === product.id ? { ...item, qty: (item.qty ?? 0) + qty } : item
-      ),
+      cart: state.cart
+        .map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                qty: item.qty + qty,
+                active: item.qty + qty > 0,
+              }
+            : item
+        )
+        .filter((item) => item.qty > 0),
     })),
 }))

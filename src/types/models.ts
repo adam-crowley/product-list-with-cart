@@ -12,6 +12,18 @@ export interface Product {
   category: string
   price: number
   qty?: number
+  active?: boolean
+}
+
+export interface CartItem extends Product {
+  qty: number
+  active: boolean
+}
+
+export interface CartStore {
+  cart: CartItem[]
+  addToCart: (product: Product) => void
+  updateProductQty: (product: Product, qty: number) => void
 }
 
 export type ProductData = Product[]
