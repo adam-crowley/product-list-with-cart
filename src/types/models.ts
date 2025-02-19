@@ -5,7 +5,7 @@ export interface ImageUrls {
   desktop: string
 }
 
-export interface Product {
+export interface ProductItem {
   id: number
   image: ImageUrls
   name: string
@@ -15,21 +15,21 @@ export interface Product {
   active?: boolean
 }
 
-export interface CartItem extends Product {
+export interface CartItem extends ProductItem {
   qty: number
   active: boolean
 }
 
 export interface CartStore {
   cart: CartItem[]
-  addToCart: (product: Product) => void
-  removeFromCart: (product: Product) => void
-  updateProductQty: (product: Product, qty: number) => void
+  addToCart: (product: ProductItem) => void
+  removeFromCart: (product: ProductItem) => void
+  updateProductQty: (product: ProductItem, qty: number) => void
   clearCart: () => void
 }
 
-export type ProductData = Product[]
+export type ProductData = ProductItem[]
 
-export interface ActiveProducts {
-  [key: string]: boolean
+export interface ProductProps {
+  product: ProductItem
 }

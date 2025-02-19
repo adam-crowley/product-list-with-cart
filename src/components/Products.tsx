@@ -1,74 +1,12 @@
-import { Product } from '../types/models'
-import { displayDecimal } from '../helperFunctions/displayDecimal'
-import { useCartStore } from '../store/cartStore'
+import { ProductItem } from '../types/models'
 import productData from '../data.json'
+import Product from './Product'
 
 function Products() {
-  const { cart, addToCart, updateProductQty } = useCartStore()
-
   return (
     <div className="products__grid">
-      {productData.map((product: Product) => (
-        <div className="product" key={product.id}>
-          <div className="product__img-container">
-            <div className="product__img-wrapper">
-              <picture>
-                <source
-                  media="(min-width: 992px)"
-                  srcSet={product.image.desktop}
-                />
-                <source
-                  media="(min-width: 768px)"
-                  srcSet={product.image.tablet}
-                />
-                <img src={product.image.mobile} alt={product.name} />
-              </picture>
-            </div>
-            {cart.find((item) => item.id === product.id)?.active ? (
-              <div className="product__qty-selector">
-                <button
-                  onClick={() => updateProductQty(product, -1)}
-                  className="product__qty-btn"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="10"
-                    height="1"
-                    fill="none"
-                    viewBox="0 0 10 1"
-                  >
-                    <path d="M0 .375h10v1.25H0V.375Z" />
-                  </svg>
-                </button>
-                {cart.find((item) => item.id === product.id)?.qty}
-                <button
-                  onClick={() => updateProductQty(product, 1)}
-                  className="product__qty-btn"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="10"
-                    height="10"
-                    fill="none"
-                    viewBox="0 0 10 10"
-                  >
-                    <path d="M10 4.375H5.625V0h-1.25v4.375H0v1.25h4.375V10h1.25V5.625H10v-1.25Z" />
-                  </svg>
-                </button>
-              </div>
-            ) : (
-              <button
-                className="product__button"
-                onClick={() => addToCart(product)}
-              >
-                Add to cart
-              </button>
-            )}
-          </div>
-          <p className="product__category">{product.category}</p>
-          <p className="product__name">{product.name}</p>
-          <p className="product__price">${displayDecimal(product.price)}</p>
-        </div>
+      {productData.map((product: ProductItem) => (
+        <Product key={product.id} product={product} />
       ))}
     </div>
   )

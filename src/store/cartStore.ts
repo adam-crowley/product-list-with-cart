@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 
-import { Product, CartStore } from '../types/models'
+import { ProductItem, CartStore } from '../types/models'
 
 export const useCartStore = create<CartStore>((set) => ({
   cart: [],
-  addToCart: (product: Product) =>
+  addToCart: (product: ProductItem) =>
     set((state) => {
       const existingProduct = state.cart.find((item) => item.id === product.id)
       if (!existingProduct) {
@@ -14,11 +14,11 @@ export const useCartStore = create<CartStore>((set) => ({
       }
       return state
     }),
-  removeFromCart: (product: Product) =>
+  removeFromCart: (product: ProductItem) =>
     set((state) => ({
       cart: state.cart.filter((item) => item.id !== product.id),
     })),
-  updateProductQty: (product: Product, qty: number) =>
+  updateProductQty: (product: ProductItem, qty: number) =>
     set((state) => ({
       cart: state.cart
         .map((item) =>
