@@ -1,27 +1,11 @@
 import { useRef } from 'react'
-import { Product } from '../types/models'
+import { CartItem } from '../types/models'
 import { displayDecimal } from '../helperFunctions/displayDecimal'
-import { useActiveProductsStore } from '../store/activeProductsStore'
+import { useCartStore } from '../store/cartStore'
 
-function Cart({
-  cart,
-  setCart,
-}: {
-  cart: Product[]
-  setCart: React.Dispatch<React.SetStateAction<Product[]>>
-}) {
-  const { setActiveProducts, clearActiveProducts } = useActiveProductsStore()
+function Cart() {
+  const { cart, removeFromCart, clearCart } = useCartStore()
   const dialogRef = useRef<HTMLDialogElement | null>(null)
-
-  const removeFromCart = (productId: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== productId))
-    setActiveProducts(productId, false)
-  }
-
-  const clearCart = () => {
-    setCart([])
-    clearActiveProducts()
-  }
 
   const openDialog = () => {
     if (dialogRef.current) {
@@ -34,6 +18,7 @@ function Cart({
     if (dialogRef.current) {
       dialogRef.current.close()
     }
+    clearCart()
   }
 
   return (
@@ -53,7 +38,7 @@ function Cart({
             <div className="cart__items--full">
               <table className="cart__table">
                 <tbody>
-                  {cart.map((product: Product) => (
+                  {cart.map((product: CartItem) => (
                     <tr key={product.id}>
                       <td>
                         <span className="cart__title">{product.name}</span>
@@ -63,12 +48,12 @@ function Cart({
                           @ ${displayDecimal(product.price)}
                         </span>
                         <span className="cart__total">
-                          ${displayDecimal(product.price * (product.qty ?? 0))}
+                          ${displayDecimal(product.price * product.qty)}
                         </span>
                       </td>
                       <td className="cart__delete-td">
                         <button
-                          onClick={() => removeFromCart(product.id)}
+                          onClick={() => removeFromCart(product)}
                           className="cart__delete-btn"
                         >
                           <svg
@@ -91,8 +76,8 @@ function Cart({
                       $
                       {displayDecimal(
                         cart.reduce(
-                          (accumulator, product: Product) =>
-                            accumulator + product.price * (product.qty ?? 0),
+                          (accumulator, product) =>
+                            accumulator + product.price * product.qty,
                           0
                         )
                       )}
@@ -130,7 +115,7 @@ function Cart({
           <div className="dialog__table-wrapper">
             <table className="dialog__table">
               <tbody>
-                {cart.map((product: Product) => (
+                {cart.map((product: CartItem) => (
                   <tr key={product.id}>
                     <td className="dialog__thumb-td">
                       <img
@@ -148,7 +133,7 @@ function Cart({
                     </td>
                     <td className="dialog__total-td">
                       <span className="dialog__total">
-                        ${displayDecimal(product.price * (product.qty ?? 0))}
+                        ${displayDecimal(product.price * product.qty)}
                       </span>
                     </td>
                   </tr>
@@ -160,8 +145,8 @@ function Cart({
                     $
                     {displayDecimal(
                       cart.reduce(
-                        (accumulator, product: Product) =>
-                          accumulator + product.price * (product.qty ?? 0),
+                        (accumulator, product) =>
+                          accumulator + product.price * product.qty,
                         0
                       )
                     )}
@@ -170,13 +155,7 @@ function Cart({
               </tbody>
             </table>
           </div>
-          <button
-            className="dialog__confirm-btn"
-            onClick={() => {
-              closeDialog()
-              clearCart()
-            }}
-          >
+          <button className="dialog__confirm-btn" onClick={() => closeDialog()}>
             Start New Order
           </button>
         </div>

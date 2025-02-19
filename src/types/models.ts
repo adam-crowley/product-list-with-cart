@@ -23,7 +23,9 @@ export interface CartItem extends Product {
 export interface CartStore {
   cart: CartItem[]
   addToCart: (product: Product) => void
+  removeFromCart: (product: Product) => void
   updateProductQty: (product: Product, qty: number) => void
+  clearCart: () => void
 }
 
 export type ProductData = Product[]

@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import Cart from './components/Cart'
 import Footer from './components/Footer'
 import Products from './components/Products'
-import { Product } from './types/models'
+import { useCartStore } from './store/cartStore'
 
 function App() {
-  const [cart, setCart] = useState<Product[]>([])
+  const { cart } = useCartStore()
 
   useEffect(() => {
     console.log('Cart: ', cart)
@@ -19,7 +19,7 @@ function App() {
             <h1>Desserts</h1>
             <Products />
           </section>
-          <Cart cart={cart} setCart={setCart} />
+          <Cart />
         </main>
         <Footer />
       </div>
