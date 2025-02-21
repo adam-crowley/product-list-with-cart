@@ -15,9 +15,18 @@ export interface ProductItem {
   active?: boolean
 }
 
+export interface ProductProps {
+  product: ProductItem
+}
+
+export type ProductData = ProductItem[]
 export interface CartItem extends ProductItem {
   qty: number
   active: boolean
+}
+
+export interface CartItemProps {
+  product: CartItem
 }
 
 export interface CartStore {
@@ -28,8 +37,7 @@ export interface CartStore {
   clearCart: () => void
 }
 
-export type ProductData = ProductItem[]
-
-export interface ProductProps {
-  product: ProductItem
+export interface DialogProps {
+  isOpen: boolean
+  closeDialog: () => void
 }
